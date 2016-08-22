@@ -2,7 +2,7 @@
 % Program: caclgui.m
 % Description: A simple 4 function calculator.
 % Author: Christian Vance 
-% Last Update: 08-12-2016
+% Last Update: 08-22-2016
 % Version: V1.1
 
 %% Tools
@@ -77,7 +77,7 @@ for r = 1:4
 						'ForegroundColor', 'black', ...
 						'Units', 'points', ... 
 						'Position', [ pdng(r), pdng(c), bsize, bsize ], ...
-						'ForegroundColor', 'white' );
+						'ForegroundColor', [ .9, .9, .9] );
 	end
 end
 
@@ -108,7 +108,8 @@ pb(2,3).String = '5' ;
 pb(2,4).String = '2' ;
 
 % "/" button
-pb(3,1).String = '/' ;					
+pb(3,1).String = '/' ;		
+% pb(3,1).Callback = @dvd;
 
 % "9" button
 pb(3,2).String = '9' ;						
@@ -122,44 +123,25 @@ pb(3,4).String = '3' ;
 % "*" button
 pb(4,1).String = '*' ;
 pb(4,1).FontSize = 30;				
+% pb(4,1).Callback = @mlt(1,3);
 
 % "-" button
 pb(4,2).String = '-' ;	
 pb(4,2).FontSize = 30;
+% pb(4,2).Callback = @sub;
 
 % "+" button
-pb(4,3).String = '+' ;						
+pb(4,3).String = '+' ;		
+% pb(4,3).Callback = @add;
 
 % "C" button
 pb(4,4).String = 'C' ;
+%pb(4,4).Callback = @clearArray;
 
 %% Visibility 
 % first made last set order for setting visibility
 spanel.Visible = 'on' ;
 bpanel.Visible = 'on' ;
 main.Visible = 'on' ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
