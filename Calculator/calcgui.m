@@ -1,3 +1,5 @@
+
+function calcgui()				% new "calcgui.m" 
 %% Title
 % Program: caclgui.m
 % Description: A simple 4 function calculator.
@@ -9,14 +11,15 @@
 dbstop if error;				%Debugging stops the scripts and points to the error. 
 % dbstep;					% Use in command line to step through errors found 		
 clear all;						%Clears the workspace before running.  
-			
-%% Instance Variables 
+
+%% Global Variables 
 bsize = 60;
 FIG_WIDTH = 350;
 FIG_HEIGHT = 480;
-% dar = zeros(4);
-% cells = zeros(4);
 pdng = [ 10, 80, 150, 220 ];
+% dataArray = zeros(1, 6);
+% bttnVal = false;
+S = sprintf('0');
 
 %% Main Figure
 main = figure( 'MenuBar', 'none', ...
@@ -28,7 +31,7 @@ main = figure( 'MenuBar', 'none', ...
 	 'Units', 'points', ...
 	 'Position', [ 20, 30 , FIG_WIDTH, FIG_HEIGHT ], ...
 	 'Visible', 'off' );
- 
+
  %% Button Panel 
  bpanel = uipanel( 'Parent', main, ...
 					'Title', 'Version V1.1', ...
@@ -55,15 +58,19 @@ main = figure( 'MenuBar', 'none', ...
 								(main.Position(3)-55), ...
 								130 ], ...
 					'BackgroundColor', [.55, .55, .55 ] );		
-				
+
 %% Screen
 screen = uicontrol( 'Parent', main, ...
 					'style', 'text', ...
+					'ForegroundColor', [ .32, .32, .32 ], ...
 					'BackgroundColor', [ .85, .85, .85 ], ...
+					'String', S, ...
+					'FontSize',75, ...
+					'HorizontalAlignment', 'right', ...
 					'Units', 'points', ...
 					'Position', [ spanel.Position(1)+20, spanel.Position(2)+20, 255, 90 ] );
-% 					'BackgroundColor', [ .35, .67, 0 ], ...
-					
+% 					'BackgroundColor', [ .35, .67, 0 ], ... %green screen 
+
 %% Buttons
 % Implementing a for loop to create a 4x4 2D array of buttons for the calculator
 % pb= zeros(4);
@@ -71,7 +78,7 @@ for r = 1:4
 	for c = 1:4
 		pb(r,c) = uicontrol( 'Parent', bpanel, ...
 						'style', 'push', ...
-						'String', '#', ...
+						'String', '#', ...			% Debugging tool 
 						'FontSize', 20, ...
 						'BackgroundColor',  [ .7, .7, .7 ] , ...
 						'ForegroundColor', 'black', ...
@@ -88,6 +95,7 @@ pb(1,1).FontSize = 50;
 
 % "7" button
 pb(1,2).String = '7' ;
+pb(1,2).ButtonDownFcn = @screenUpdate;
 
 % "4" button
 pb(1,3).String = '4' ;
@@ -109,7 +117,6 @@ pb(2,4).String = '2' ;
 
 % "/" button
 pb(3,1).String = '/' ;		
-% pb(3,1).Callback = @dvd;
 
 % "9" button
 pb(3,2).String = '9' ;						
@@ -123,20 +130,16 @@ pb(3,4).String = '3' ;
 % "*" button
 pb(4,1).String = '*' ;
 pb(4,1).FontSize = 30;				
-% pb(4,1).Callback = @mlt(1,3);
 
 % "-" button
 pb(4,2).String = '-' ;	
-pb(4,2).FontSize = 30;
-% pb(4,2).Callback = @sub;
+pb(4,2).FontSize = 35;
 
 % "+" button
 pb(4,3).String = '+' ;		
-% pb(4,3).Callback = @add;
 
 % "C" button
 pb(4,4).String = 'C' ;
-%pb(4,4).Callback = @clearArray;
 
 %% Visibility 
 % first made last set order for setting visibility
@@ -144,4 +147,15 @@ spanel.Visible = 'on' ;
 bpanel.Visible = 'on' ;
 main.Visible = 'on' ;
 
+end
+%% Local Functions
+% function nwFig()							% Debugging tool 
+% 	figure('Visisble', 'on', ...
+% 			'Background', 'black' );
+% end
+
+function screenUpdate()
+% 	screen.String = pb(1,2);
+ figure('Visible', 'on', 'Background', 'black');
+end
 
